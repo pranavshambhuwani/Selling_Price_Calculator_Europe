@@ -1,61 +1,46 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
+function calculateSellingPrice() {
+    // Get input values
+    const cost = parseFloat(document.getElementById('cost').value);
+    const shipping = parseFloat(document.getElementById('shipping').value);
+    const vatRate = parseFloat(document.getElementById('vatRate').value) / 100;
+    const commissionRate = parseFloat(document.getElementById('commissionRate').value) / 100;
+    const desiredMargin = parseFloat(document.getElementById('desiredMargin').value) / 100;
 
-.container {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 300px;
-}
+    // Function to perform goal seek
+    function goalSeek(fn, target, guess = 1, epsilon = 0.0001, maxIter = 100) {
+        let x = guess;
+        let iteration = 0;
+        while (Math.abs(fn(x) - target) > epsilon && iteration < maxIter) {
+            x = x - (fn(x) - target) / (fn(x + epsilon) - fn(x));
+            iteration++;
+        }
+        return x;
+    }
 
-h1 {
-    margin-top: 0;
-}
+    // Function to calculate the margin
+    function calculateMargin(sellingPrice) {
+        const totalVAT = (sellingPrice + shipping) - ((sellingPrice + shipping) / (1 + vatRate));
+        const totalCommission = commissionRate * (sellingPrice + shipping);
+        const effectiveCost = cost + totalVAT + totalCommission;
+        const profit = sellingPrice - effectiveCost;
+        return profit / sellingPrice;
+    }
 
-label {
-    display: block;
-    margin-bottom: 8px;
-}
+    // Perform goal seek to find the correct selling price
+    const sellingPrice = goalSeek(calculateMargin, desiredMargin);
 
-input {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
+    // Calculate final values based on the found selling price
+    const totalVAT = (sellingPrice + shipping) - ((sellingPrice + shipping) / (1 + vatRate));
+    const totalCommission = commissionRate * (sellingPrice + shipping);
+    const effectiveCost = cost + totalVAT + totalCommission;
+    const profit = sellingPrice - effectiveCost;
+    const calculatedMargin = profit / sellingPrice;
 
-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
-
-.results {
-    margin-top: 20px;
-}
-
-.results h2 {
-    margin-bottom: 10px;
-}
-
-.results p {
-    margin: 5px 0;
+    // Update the results in the HTML
+    document.getElementById('sellingPrice').innerText = sellingPrice.toFixed(2);
+    document.getElementById('totalVAT').innerText = totalVAT.toFixed(2);
+    document.getElementById('totalCommission').innerText = totalCommission.toFixed(2);
+    document.getElementById('effectiveCost').innerText = effectiveCost.toFixed(2);
+    document.getElementById('profit').innerText = profit.toFixed(2);
+    document.getElementById('calculatedMargin').innerText = (calculatedMargin * 100).toFixed(2) + '%';
 }
