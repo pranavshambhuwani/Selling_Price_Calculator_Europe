@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selling Price Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Selling Price Calculator</h1>
+        <form id="calculatorForm">
+            <label for="cost">Cost:</label>
+            <input type="number" id="cost" name="cost" required>
+            
+            <label for="shipping">Shipping:</label>
+            <input type="number" id="shipping" name="shipping" required>
+            
+            <label for="vatRate">VAT Rate (%):</label>
+            <input type="number" id="vatRate" name="vatRate" required>
+            
+            <label for="commissionRate">Commission Rate (%):</label>
+            <input type="number" id="commissionRate" name="commissionRate" required>
+            
+            <label for="desiredMargin">Desired Margin (%):</label>
+            <input type="number" id="desiredMargin" name="desiredMargin" required>
+            
+            <button type="button" onclick="calculateSellingPrice()">Calculate</button>
+        </form>
+        
+        <div id="result">
+            <h2>Results</h2>
+            <p>Selling Price: <span id="sellingPrice"></span></p>
+            <p>Total VAT: <span id="totalVAT"></span></p>
+            <p>Total Commission: <span id="totalCommission"></span></p>
+            <p>Effective Cost: <span id="effectiveCost"></span></p>
+            <p>Profit: <span id="profit"></span></p>
+            <p>Calculated Margin: <span id="calculatedMargin"></span></p>
+        </div>
+
+        <!-- AdSense Code -->
+        <div class="ads">
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+                 data-ad-slot="xxxxxxxxxx"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
