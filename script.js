@@ -1,31 +1,61 @@
-function calculateSellingPrice() {
-    // Get input values
-    const cost = parseFloat(document.getElementById('cost').value);
-    const shipping = parseFloat(document.getElementById('shipping').value);
-    const vatRate = parseFloat(document.getElementById('vatRate').value) / 100;
-    const commissionRate = parseFloat(document.getElementById('commissionRate').value) / 100;
-    const desiredMargin = parseFloat(document.getElementById('desiredMargin').value) / 100;
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
 
-    // Calculate the initial selling price excluding shipping
-    let sellingPrice = cost / (1 - desiredMargin);
-    
-    // Calculate total VAT based on selling price plus shipping
-    const totalVAT = (sellingPrice + shipping) * vatRate;
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 300px;
+}
 
-    // Calculate total commission based on selling price plus shipping
-    const totalCommission = (sellingPrice + shipping) * commissionRate;
+h1 {
+    margin-top: 0;
+}
 
-    // Calculate profit
-    const profit = sellingPrice - cost - totalVAT - totalCommission;
+label {
+    display: block;
+    margin-bottom: 8px;
+}
 
-    // Calculate the actual margin
-    const calculatedMargin = profit / sellingPrice;
+input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
 
-    // Display results
-    document.getElementById('sellingPrice').innerText = sellingPrice.toFixed(2);
-    document.getElementById('totalVAT').innerText = totalVAT.toFixed(2);
-    document.getElementById('totalCommission').innerText = totalCommission.toFixed(2);
-    document.getElementById('effectiveCost').innerText = (cost + totalVAT + totalCommission).toFixed(2);
-    document.getElementById('profit').innerText = profit.toFixed(2);
-    document.getElementById('calculatedMargin').innerText = (calculatedMargin * 100).toFixed(2) + '%';
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.results {
+    margin-top: 20px;
+}
+
+.results h2 {
+    margin-bottom: 10px;
+}
+
+.results p {
+    margin: 5px 0;
 }
